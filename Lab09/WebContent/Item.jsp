@@ -26,6 +26,10 @@
 				request.getParameter("itemPrice"),
 				request.getParameter("itemDesc"));
 		}
+		else//Update----------------------
+		 { 
+		 stsMsg = itemObj.updateItem(request.getParameter("hidItemIDSave"), request.getParameter("itemCode"), request.getParameter("itemName"), request.getParameter("itemPrice"), request.getParameter("itemDesc"));
+		 }
 		
 		session.setAttribute("statusMsg", stsMsg);
 	}
@@ -45,7 +49,7 @@
 				<h1>Items Management</h1>
 				<form id="formItem" name="formItem" method="post" action="Item.jsp">
 
-						Item code: <input id="itemCode" name="itemCode" type="text"
+					Item code: <input id="itemCode" name="itemCode" type="text"
 						class="form-control"><br> 
 					
 					Item name: <input
