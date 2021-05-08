@@ -66,16 +66,17 @@ public class Item {
 				String itemName = rs.getString("itemName");
 				String itemPrice = Double.toString(rs.getDouble("itemPrice"));
 				String itemDesc = rs.getString("itemDesc");
-				// Add a row into the html table
-				output += "<tr><td>" + itemCode + "</td>";
-				output += "<td>" + itemName + "</td>";
-				output += "<td>" + itemPrice + "</td>";
-				output += "<td>" + itemDesc + "</td>";
+				// Add into the html table
+				 output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + itemID + "'>"
+				 + itemCode + "</td>"; 
+				 output += "<td>" + itemName + "</td>"; 
+				 output += "<td>" + itemPrice + "</td>"; 
+				 output += "<td>" + itemDesc + "</td>";
 				// buttons
-				output += "<td><input name='btnUpdate' type='button' value='Update' class=\"btn btn-success\"></td>"
-						+ "<td><form method='post' action='Item.jsp'>"
-						+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-						+ "<input name='itemID' type='hidden' value='" + itemID + "'>" + "</form></td></tr>";
+				output +="<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary'></td>"+
+						 "<td><form method='post' action='Item.jsp'> "
+						 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+						 + " <input name='hidItemIDDelete' type='hidden' value='" + itemID + "'> </form></td></tr>"; 
 
 			}
 			con.close();

@@ -12,33 +12,49 @@
 
 <body>
 	<%
-	//Insert item---------------------------------
+	//Save---------------------------------
 	if (request.getParameter("itemCode") != null) {
-		Item itemObj=new Item();
-		String stsMsg = itemObj.insertItem(request.getParameter("itemCode"), request.getParameter("itemName"),
-		request.getParameter("itemPrice"), request.getParameter("itemDesc"));
+	Item itemObj = new Item();
+	String stsMsg = "";
+	//Insert--------------------------
+	if (request.getParameter("hidItemIDSave") == "") {
+		stsMsg = itemObj.insertItem(request.getParameter("itemCode"),
+			request.getParameter("itemName"),
+			request.getParameter("itemPrice"),
+			request.getParameter("itemDesc"));
+	}
+
+	//Delete-----------------------------
+	if (request.getParameter("hidItemIDDelete") != null) {
+		stsMsg =	itemObj.deleteItem(request.getParameter("hidItemIDDelete"));
+	}
 		session.setAttribute("statusMsg", stsMsg);
 	}
-	//Delete item----------------------------------
-	if (request.getParameter("itemID") != null) {
-		Item itemObj=new Item();
-		String stsMsg = itemObj.deleteItem(request.getParameter("itemID"));
-		session.setAttribute("statusMsg", stsMsg);
-	}
+
 	%>
 
 	<div class="container">
 		<div class="row">
 			<div class="col">
 				<h1>Items Management</h1>
-				<form method="post" action="Item.jsp">
-					Item code: <input name="itemCode" type="text" class="form-control"><br>
-					Item name: <input name="itemName" type="text" class="form-control"><br>
-					Item price: <input name="itemPrice" type="text"
-						class="form-control"><br> Item description: <input
-						name="itemDesc" type="text" class="form-control"><br>
-					<input name="btnSubmit" type="submit" value="Save"
-						class="btn btn-primary">
+				<form id="formItem" name="formItem" method="post" action="Item.jsp">
+					Item code: <input id="itemCode" name="itemCode" type="text"
+						class="form-control"><br> 
+					
+					Item name: <input
+						id="itemName" name="itemName" type="text" class="form-control"><br>
+					
+					Item price: <input id="itemPrice" name="itemPrice" type="text"
+						class="form-control"><br> 
+						
+					Item description: <input id="itemDesc" name="itemDesc" type="text" 
+						class="form-control"><br>
+						
+					<input id="btnSave" name="btnSave" type="button" value="Save"
+						class="btn btn-primary"> 
+						
+					<input type="hidden"
+						id="hidItemIDSave" name="hidItemIDSave" value="">
 
 					<div class="alert alert-success">
 						<%
