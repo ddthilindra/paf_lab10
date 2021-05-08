@@ -10,7 +10,7 @@ public class Item {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/itemdb", "root", "");
 			// For testing
-			System.out.print("Successfully connected");
+			System.out.println("Successfully connected");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -20,6 +20,7 @@ public class Item {
 
 	public String insertItem(String code, String name, String price, String desc) {
 		String output = "";
+		System.out.println("insert method called");
 		try {
 			Connection con = connect();
 			if (con == null) {
@@ -90,6 +91,7 @@ public class Item {
 	}
 
 	public String deleteItem(String itemID) {
+		System.out.println("delete method called");
 		String output = "";
 		try {
 			Connection con = connect();

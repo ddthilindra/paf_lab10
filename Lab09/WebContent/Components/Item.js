@@ -1,9 +1,10 @@
 $(document).ready(function() {
-	if ($("#alertSuccess").text().trim() == "") {
+	if ($("#alertSuccess").text().trim() == "null") {
 		$("#alertSuccess").hide();
 	}
 	$("#alertError").hide();
 });
+
 
 // SAVE ============================================
 $(document).on("click", "#btnSave", function(event) {
@@ -11,7 +12,7 @@ $(document).on("click", "#btnSave", function(event) {
 	$("#alertSuccess").text("");
 	$("#alertSuccess").hide();
 	$("#alertError").text("");
-	$("#alertError").hide(); 6
+	$("#alertError").hide();
 	// Form validation-------------------
 	var status = validateItemForm();
 	if (status != true) {
@@ -23,14 +24,6 @@ $(document).on("click", "#btnSave", function(event) {
 	$("#formItem").submit();
 });
 
-// UPDATE==========================================
-$(document).on("click", ".btnUpdate", function(event) {
-	$("#hidItemIDSave").val($(this).closest("tr").find('#hidItemIDUpdate').val());
-	$("#itemCode").val($(this).closest("tr").find('td:eq(0)').text());
-	$("#itemName").val($(this).closest("tr").find('td:eq(1)').text());
-	$("#itemPrice").val($(this).closest("tr").find('td:eq(2)').text());
-	$("#itemDesc").val($(this).closest("tr").find('td:eq(3)').text());
-});
 
 // CLIENT-MODEL================================================================
 function validateItemForm() {

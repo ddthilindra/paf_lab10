@@ -8,6 +8,8 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="Views/bootstrap.min.css">
+<script src="Components/jquery-3.2.1.min.js"></script>
+<script src="Components/Item.js"></script>
 </head>
 
 <body>
@@ -16,6 +18,7 @@
 	if (request.getParameter("itemCode") != null) {
 		Item itemObj = new Item();
 		String stsMsg = "";
+		System.out.println("insert");
 		//Insert--------------------------
 		if (request.getParameter("hidItemIDSave") == "") {
 			stsMsg = itemObj.insertItem(request.getParameter("itemCode"),
@@ -27,14 +30,13 @@
 		session.setAttribute("statusMsg", stsMsg);
 	}
 	//Delete-----------------------------
-	if (request.getParameter("hidItemIDDelete") != null) {
-		Item itemObj = new Item();
-		String stsMsg =
-			itemObj.deleteItem(request.getParameter("hidItemIDDelete"));
-		session.setAttribute("statusMsg", stsMsg);
+	if (request.getParameter("hidItemIDDelete") != null) 
+	{ 
+		System.out.println("delete");
+	 Item itemObj = new Item(); 
+	 String stsMsg = itemObj.deleteItem(request.getParameter("hidItemIDDelete")); 
+	 session.setAttribute("statusMsg", stsMsg); 
 	}
-
-
 	%>
 
 	<div class="container">
@@ -42,7 +44,8 @@
 			<div class="col">
 				<h1>Items Management</h1>
 				<form id="formItem" name="formItem" method="post" action="Item.jsp">
-					Item code: <input id="itemCode" name="itemCode" type="text"
+
+						Item code: <input id="itemCode" name="itemCode" type="text"
 						class="form-control"><br> 
 					
 					Item name: <input
@@ -56,22 +59,21 @@
 						
 					<input id="btnSave" name="btnSave" type="button" value="Save"
 						class="btn btn-primary"> 
-						
-					<input type="hidden"
-						id="hidItemIDSave" name="hidItemIDSave" value="">
 
-					<div class="alert alert-success">
+					<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+					
+					<div class="alert alert-success" id="alertSuccess">
 						<%
 						out.print(session.getAttribute("statusMsg"));
 						%>
 					</div>
-
-					<br>
-					<%
+				</form>
+				<br>
+				<%
 					Item itemObj = new Item();
 					out.print(itemObj.readItems());
 					%>
-				</form>
+
 			</div>
 		</div>
 	</div>
