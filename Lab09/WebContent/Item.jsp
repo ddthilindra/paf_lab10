@@ -14,22 +14,26 @@
 	<%
 	//Save---------------------------------
 	if (request.getParameter("itemCode") != null) {
-	Item itemObj = new Item();
-	String stsMsg = "";
-	//Insert--------------------------
-	if (request.getParameter("hidItemIDSave") == "") {
-		stsMsg = itemObj.insertItem(request.getParameter("itemCode"),
-			request.getParameter("itemName"),
-			request.getParameter("itemPrice"),
-			request.getParameter("itemDesc"));
-	}
-
-	//Delete-----------------------------
-	if (request.getParameter("hidItemIDDelete") != null) {
-		stsMsg =	itemObj.deleteItem(request.getParameter("hidItemIDDelete"));
-	}
+		Item itemObj = new Item();
+		String stsMsg = "";
+		//Insert--------------------------
+		if (request.getParameter("hidItemIDSave") == "") {
+			stsMsg = itemObj.insertItem(request.getParameter("itemCode"),
+				request.getParameter("itemName"),
+				request.getParameter("itemPrice"),
+				request.getParameter("itemDesc"));
+		}
+		
 		session.setAttribute("statusMsg", stsMsg);
 	}
+	//Delete-----------------------------
+	if (request.getParameter("hidItemIDDelete") != null) {
+		Item itemObj = new Item();
+		String stsMsg =
+			itemObj.deleteItem(request.getParameter("hidItemIDDelete"));
+		session.setAttribute("statusMsg", stsMsg);
+	}
+
 
 	%>
 
