@@ -30,7 +30,7 @@
 						id="itemDesc" name="itemDesc" type="text" class="form-control"><br>
 
 					<input id="btnSave" name="btnSave" type="button" value="Save"
-						class="btn btn-primary"> <input type="hidden"
+						class="btn btn-primary"> <input 
 						id="hidItemIDSave" name="hidItemIDSave" value="">
 
 
