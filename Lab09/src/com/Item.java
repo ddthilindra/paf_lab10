@@ -39,9 +39,12 @@ public class Item {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Inserted successfully";
+
+			String newItems = readItems();
+			output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
+
 		} catch (Exception e) {
-			output = "Error while inserting";
+			output = "{\"status\":\"error\", \"data\":\"Error while inserting the item.\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -68,16 +71,16 @@ public class Item {
 				String itemPrice = Double.toString(rs.getDouble("itemPrice"));
 				String itemDesc = rs.getString("itemDesc");
 				// Add into the html table
-				 output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + itemID + "'>"
-				 + itemCode + "</td>"; 
-				 output += "<td>" + itemName + "</td>"; 
-				 output += "<td>" + itemPrice + "</td>"; 
-				 output += "<td>" + itemDesc + "</td>";
+				output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + itemID
+						+ "'>" + itemCode + "</td>";
+				output += "<td>" + itemName + "</td>";
+				output += "<td>" + itemPrice + "</td>";
+				output += "<td>" + itemDesc + "</td>";
 				// buttons
-				output +="<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary'></td>"+
-						 "<td><form method='post' action='Item.jsp'> "
-						 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-						 + " <input name='hidItemIDDelete' type='hidden' value='" + itemID + "'> </form></td></tr>"; 
+				output += "<td><input name='btnUpdate' type='button' value='Update' "
+						+ "class='btnUpdate btn btn-secondary' data-itemid='" + itemID + "'></td>"
+						+ "<td><input name='btnRemove' type='button' value='Remove' "
+						+ "class='btnRemove btn btn-danger' data-itemid='" + itemID + "'></td></tr>";
 
 			}
 			con.close();
@@ -107,43 +110,42 @@ public class Item {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Deleted successfully";
+			
+			String newItems = readItems(); 
+			 output = "{\"status\":\"success\", \"data\": \"" + 
+			 newItems + "\"}"; 
+			
 		} catch (Exception e) {
-			output = "Error while deleting the item.";
+			output = "{\"status\":\"error\", \"data\":\"Error while deleting the item.\"}"; 
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
-	
-	public String updateItem(String id, String code, String name, String price, String desc)
-	{
+
+	public String updateItem(String ID, String code, String name, String price, String desc) {
 		String output = "";
-		try
-		{
+		try {
 			Connection con = connect();
-			if (con == null)
-			{
-				return "Error while connecting to the database";
+			if (con == null) {
+				return "Error while connecting to the database for updating.";
 			}
-
-
-			String query = "update items set 'itemCode'=?,'itemName'=?,'itemPrice'=?,'itemDesc'=? where 'itemID'=?";
+			// create a prepared statement
+			String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=? WHERE itemID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
-
+			// binding values
 			preparedStmt.setString(1, code);
 			preparedStmt.setString(2, name);
 			preparedStmt.setDouble(3, Double.parseDouble(price));
 			preparedStmt.setString(4, desc);
-			preparedStmt.setString(5, id);
+			preparedStmt.setInt(5, Integer.parseInt(ID));
 
-
-			preparedStmt.executeUpdate();
+			// execute the statement
+			preparedStmt.execute();
 			con.close();
-			output = "Item " + id + " Updated successfully";
-		}
-		catch (Exception e)
-		{
-			output = "Error while updating";
+			String newItems = readItems();
+			output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
+		} catch (Exception e) {
+			output = "{\"status\":\"error\", \"data\":\"Error while updating the item.\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
